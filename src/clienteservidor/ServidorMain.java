@@ -5,7 +5,6 @@ import java.io.File;
 
 public class ServidorMain {
     public static void main(String[] a) throws Exception {
-
         String tipo = a[0];
         int porta = Integer.parseInt(a[1]);
         File arq = new File(a[2]);

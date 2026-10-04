@@ -55,7 +55,6 @@ public class ClienteDownload {
         for (Thread t : ts) {
             t.join();
         }
-
         return tempos;
     }
 

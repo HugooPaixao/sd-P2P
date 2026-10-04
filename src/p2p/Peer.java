@@ -27,6 +27,7 @@ public class Peer {
     private final Path temp;                        // null no seed, que lê direto do arquivo original
     private final FileChannel canal;
     private ServerSocket servidor;
+    private final List<InetSocketAddress> vizinhos;
     private volatile boolean ativo = true;
     private final CountDownLatch concluido = new CountDownLatch(1);
     private volatile long inicio, fim;

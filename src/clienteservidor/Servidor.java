@@ -12,6 +12,7 @@ public class Servidor {
     private final Limite limite;
     private final Atendimento atendimento;
     private ServerSocket ss;
+    private Thread aceitador;
 
     private Servidor(int porta, File arquivo, Limite limite, Atendimento atendimento) {
         this.porta = porta;
@@ -38,7 +39,7 @@ public class Servidor {
         ss.setReuseAddress(true); // reabrir a mesma porta entre experimentos seguidos
         ss.bind(new InetSocketAddress(porta), 1000);
 
-        Thread aceitador = new Thread(() -> {
+        aceitador = new Thread(() -> {
 
             while (!ss.isClosed()) {
                 try {
@@ -53,8 +54,9 @@ public class Servidor {
         aceitador.start();
     }
 
-    public void parar() throws IOException {
+    public void parar() throws IOException, InterruptedException {
         ss.close();
+        aceitador.join();
         atendimento.encerrar();
     }
 

@@ -2,14 +2,11 @@ package comum;
 
 import java.util.concurrent.locks.LockSupport;
 
-/**
- * Emula a banda de upload de uma placa de rede.
- * Em localhost não há gargalo de rede, então sem isso os testes mediriam só CPU/memória.
- * Uma única instância compartilhada por várias threads divide a banda entre elas.
- */
+
 public class Limite {
     private final double nsPorByte;                 // 0 é sem limite
     private long proximo = System.nanoTime();       // instante em que o canal fica livre
+    private static final long TOLERANCIA_NS = 2_000_000;
 
     public Limite(long bytesPorSegundo) {
         this.nsPorByte = bytesPorSegundo <= 0 ? 0 : 1_000_000_000.0 / bytesPorSegundo;
@@ -26,8 +23,8 @@ public class Limite {
 
         synchronized (this) {
             long agora = System.nanoTime();
-            if (proximo < agora) {
-                proximo = agora;   // não acumula  banda
+            if (proximo < agora - TOLERANCIA_NS) {
+                proximo = agora - TOLERANCIA_NS;
             }
 
             proximo += (long) (bytes * nsPorByte);

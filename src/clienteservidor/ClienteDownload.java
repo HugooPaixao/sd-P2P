@@ -22,6 +22,7 @@ public class ClienteDownload {
             long lido = 0;
             while (lido < total) {
                 int n = in.read(buf, 0, (int) Math.min(buf.length, total - lido));
+
                 if (n < 0) {
                     throw new EOFException("Conexão fechada antes do fim");
                 }
@@ -71,8 +72,5 @@ public class ClienteDownload {
         System.out.printf(Locale.US, "min=%.3f  medio=%.3f  max=%.3f%n",
                 st.getMin(), st.getAverage(), st.getMax());
     }
-
-
-
 
 }

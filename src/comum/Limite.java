@@ -15,6 +15,8 @@ public class Limite {
         this.nsPorByte = bytesPorSegundo <= 0 ? 0 : 1_000_000_000.0 / bytesPorSegundo;
     }
 
+
+
     public void consumir(int bytes) {
         if (nsPorByte == 0) {
             return;
@@ -36,5 +38,10 @@ public class Limite {
         while ((resta = alvo - System.nanoTime()) > 0) {
             LockSupport.parkNanos(resta);
         }
+
+
     }
+
+
+
 }

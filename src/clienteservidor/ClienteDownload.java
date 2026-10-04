@@ -50,6 +50,10 @@ public class ClienteDownload {
                 }
             });
 
+
+
+
+
             ts[i].start();
         }
         for (Thread t : ts) {
@@ -67,4 +71,8 @@ public class ClienteDownload {
         System.out.printf(Locale.US, "min=%.3f  medio=%.3f  max=%.3f%n",
                 st.getMin(), st.getAverage(), st.getMax());
     }
+
+
+
+
 }
